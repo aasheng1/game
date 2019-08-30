@@ -1,0 +1,300 @@
+﻿{% extends 'accounts/base_index.html' %}
+{% block title %}首页{% endblock %}
+{% load staticfiles %}
+{% block index %}
+    <!--轮播图片开始-->
+    <div class="hero-section section position-relative">
+        <div class="hero-slider">
+            <!--Hero Item start-->
+            <div class="hero-item hero-item-2" style="background-image: url({% static 'images/hero/hero-11.jpg' %})">
+                <div class="container container-1520">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <!--Hero Content start-->
+                            <div class="hero-content">
+                                <h1>Welcome to</h1>
+                                <h2>Game download centre</h2>
+                            </div>
+                            <!--Hero Content end-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Hero Item end-->
+            <!--Hero Item start-->
+            <div class="hero-item hero-item-2" style="background-image: url({% static 'images/hero/roma.jpg' %})">
+                <div class="container container-1520">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <!--Hero Content start-->
+                            <div class="hero-content">
+{#                                <h1>待定</h1>#}
+{#                                <h2>待定</h2>#}
+                            </div>
+                            <!--Hero Content end-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Hero Item end-->
+        </div>
+    </div>
+    <!--轮播图片结束-->
+    
+    <!--轮播大图片下面的滚动小图片开始-->
+    <div class="featured-section section pb-95 pb-lg-75 pb-md-65 pb-sm-55 pb-xs-45">
+        <div class="container-fluid p-0">
+            <div class="row no-gutters">
+                <div class="col-12">
+                    <!--Featured Title Start-->
+                    <div class="featured-title">
+                        <h2>许多特色游戏</h2>
+                        <a href="{% url 'download:list' %}">查看全部游戏</a>
+                    </div>
+                    <!--Featured Title End-->
+                </div>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-12">
+                    <div class="featured-slide">
+                        <div class="single-featured img-full">
+                            <a href="{% url 'download:download_details' game1.id %}"><img src="{{ game1.poster }}" alt=""></a>
+                        </div>
+                        <div class="single-featured img-full">
+                            <a href="{% url 'download:download_details' game2.id %}"><img src="{{ game2.poster }}" alt=""></a>
+                        </div>
+                        <div class="single-featured img-full">
+                            <a href="{% url 'download:download_details' game3.id %}"><img src="{{ game3.poster }}" alt=""></a>
+                        </div>
+                        <div class="single-featured img-full">
+                            <a href="{% url 'download:download_details' game4.id %}"><img src="{{ game4.poster }}" alt=""></a>
+                        </div>
+                        <div class="single-featured img-full">
+                            <a href="{% url 'download:download_details' game5.id %}"><img src="{{ game5.poster }}" alt=""></a>
+                        </div>
+                        <div class="single-featured img-full">
+                            <a href="{% url 'download:download_details' game6.id %}"><img src="{{ game6.poster }}" alt=""></a>
+                        </div>
+                        <div class="single-featured img-full">
+                            <a href="{% url 'download:download_details' game7.id %}"><img src="{{ game7.poster }}" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--轮播大图片下面的滚动小图片结束-->
+    
+    <!--主页上面的最新游戏开始-->
+    <div class="new-game-area section pb-50 pb-lg-30 pb-md-20 pb-sm-10 pb-xs-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!--Section Title Start-->
+                    <div class="section-title">
+                        <h2><span class="color-blue">推</span>荐</h2>
+                    </div>
+                    <!--Section Title End-->
+                </div>
+            </div>
+            <div class="row game-slide">
+                <div class="col-4">
+                    <!--Single Game Start-->
+                    <div class="single-game mb-50">
+                        <div class="game-img">
+                            <a href="{% url 'download:download_details' game1.id %}"><img src="{{ game1.poster }}" alt="" class="img_list"></a>
+                        </div>
+                        <div class="game-content">
+                            <h4><a href="{% url 'download:download_details' game1.id %}">{{ game1.game_name }}</a></h4>
+                            <span>评分 {{ game1.grade }}</span>
+                        </div>
+                    </div>
+                    <!--Single Game End-->
+                    <!--Single Game Start-->
+                    <div class="single-game mb-50">
+                        <div class="game-img">
+                            <a href="{% url 'download:download_details' game2.id %}"><img src="{{ game2.poster }}" alt="" class="img_list"></a>
+                        </div>
+                        <div class="game-content">
+                            <h4><a href="{% url 'download:download_details' game2.id %}">{{ game2.game_name }}</a></h4>
+                            <span>评分 {{ game2.grade }}</span>
+                        </div>
+                    </div>
+                    <!--Single Game End-->
+                </div>
+                <div class="col-4">
+                    <!--Single Game Start-->
+                    <div class="single-game mb-50">
+                        <div class="game-img">
+                            <a href="{% url 'download:download_details' game3.id %}"><img src="{{ game3.poster }}" alt="" class="img_list"></a>
+                        </div>
+                        <div class="game-content">
+                            <h4><a href="{% url 'download:download_details' game3.id %}">{{ game3.game_name }}</a></h4>
+                            <span>评分 {{ game3.grade }}</span>
+                        </div>
+                    </div>
+                    <!--Single Game End-->
+                    <!--Single Game Start-->
+                    <div class="single-game mb-50">
+                        <div class="game-img">
+                            <a href="{% url 'download:download_details' game4.id %}"><img src="{{ game4.poster }}" alt="" class="img_list"></a>
+                        </div>
+                        <div class="game-content">
+                            <h4><a href="{% url 'download:download_details' game4.id %}">{{ game4.game_name }}</a></h4>
+                            <span>评分 {{ game4.grade }}</span>
+                        </div>
+                    </div>
+                    <!--Single Game End-->
+                </div>
+                <div class="col-4">
+                    <!--Single Game Start-->
+                    <div class="single-game mb-50">
+                        <div class="game-img">
+                            <a href="{% url 'download:download_details' game5.id %}"><img src="{{ game5.poster }}" alt="" class="img_list"></a>
+                        </div>
+                        <div class="game-content">
+                            <h4><a href="{% url 'download:download_details' game5.id %}">{{ game5.game_name }}</a></h4>
+                            <span>评分 {{ game5.grade }}</span>
+                        </div>
+                    </div>
+                    <!--Single Game End-->
+                    <!--Single Game Start-->
+                    <div class="single-game mb-50">
+                        <div class="game-img">
+                            <a href="{% url 'download:download_details' game6.id %}"><img src="{{ game6.poster }}" alt="" class="img_list"></a>
+                        </div>
+                        <div class="game-content">
+                            <h4><a href="{% url 'download:download_details' game6.id %}">{{ game6.game_name }}</a></h4>
+                            <span>评分 {{ game6.grade }}</span>
+                        </div>
+                    </div>
+                    <!--Single Game End-->
+                </div>
+                <div class="col-4">
+                    <!--Single Game Start-->
+                    <div class="single-game mb-50">
+                        <div class="game-img">
+                            <a href="{% url 'download:download_details' game7.id %}"><img src="{{ game7.poster }}" alt="" class="img_list"></a>
+                        </div>
+                        <div class="game-content">
+                            <h4><a href="{% url 'download:download_details' game7.id %}">{{ game7.game_name }}</a></h4>
+                            <span>评分 {{ game7.grade }}</span>
+                        </div>
+                    </div>
+                    <!--Single Game End-->
+                    <!--Single Game Start-->
+                    <div class="single-game mb-50">
+                        <div class="game-img">
+                            <a href="{% url 'download:download_details' game8.id %}"><img src="{{ game8.poster }}" alt="" class="img_list"></a>
+                        </div>
+                        <div class="game-content">
+                            <h4><a href="{% url 'download:download_details' game8.id %}">{{ game8.game_name }}</a></h4>
+                            <span>{{ game8.grade }}</span>
+                        </div>
+                    </div>
+                    <!--Single Game End-->
+                </div>
+                <div class="col-4">
+                    <!--Single Game Start-->
+                    <div class="single-game mb-50">
+                        <div class="game-img">
+                            <a href="{% url 'download:download_details' game9.id %}"><img src="{{ game9.poster }}" alt="" class="img_list"></a>
+                        </div>
+                        <div class="game-content">
+                            <h4><a href="{% url 'download:download_details' game9.id %}">{{ game9.game_name }}</a></h4>
+                            <span>{{ game9.grade }}</span>
+                        </div>
+                    </div>
+                    <!--Single Game End-->
+                    <!--Single Game Start-->
+                    <div class="single-game mb-50">
+                        <div class="game-img">
+                            <a href="{% url 'download:download_details' game10.id %}"><img src="{{ game10.poster }}" alt="" class="img_list"></a>
+                        </div>
+                        <div class="game-content">
+                            <h4><a href="{% url 'download:download_details' game10.id %}">{{ game10.game_name }}</a></h4>
+                            <span>{{ game10.grade }}</span>
+                        </div>
+                    </div>
+                    <!--Single Game End-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--主页上面的最新游戏结束-->
+    
+    <!--最下面滚动的画面开始-->
+    <div class="video-section section pb-135 pb-lg-115 pb-md-105 pb-sm-95 pb-xs-85">
+        <div class="container-fluid p-0">
+            <div class="row no-gutters align-items-end">
+                <div class="col-12">
+                    <div class="video-slider-active">
+                        <div class="single-video">
+                            <div class="video-img video-img-2">
+                                <img src="{% static 'images/video/video-front1.jpg' %}" alt="">
+                                <div class="video-content content-center">
+                                <h3>The Magician 3</h3>
+                                    <a class="video-popup" href="https://www.youtube.com/watch?v=BjiaMBk6rHk"><i class="icofont-play-alt-2"></i> view demo</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-video">
+                            <div class="video-img video-img-2">
+                                <img src="{% static 'images/video/video-front3.jpg' %}" alt="">
+                                <div class="video-content content-center">
+                                <h3>The Magician 3</h3>
+                                    <a class="video-popup" href="https://www.youtube.com/watch?v=BjiaMBk6rHk"><i class="icofont-play-alt-2"></i> view demo</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-video">
+                            <div class="video-img video-img-2">
+                                <img src="{% static 'images/video/video-front2.jpg' %}" alt="">
+                                <div class="video-content content-center">
+                                <h3>The Magician 3</h3>
+                                    <a class="video-popup" href="https://www.youtube.com/watch?v=BjiaMBk6rHk"><i class="icofont-play-alt-2"></i> view demo</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-video">
+                            <div class="video-img video-img-2">
+                                <img src="{% static 'images/video/video-front4.jpg' %}" alt="">
+                                <div class="video-content content-center">
+                                <h3>The Magician 3</h3>
+                                    <a class="video-popup" href="https://www.youtube.com/watch?v=BjiaMBk6rHk"><i class="icofont-play-alt-2"></i> view demo</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-video">
+                            <div class="video-img video-img-2">
+                                <img src="{% static 'images/video/video-front1.jpg' %}" alt="">
+                                <div class="video-content content-center">
+                                <h3></h3>
+                                    <a class="video-popup" href="https://www.youtube.com/watch?v=BjiaMBk6rHk"><i class="icofont-play-alt-2"></i> view demo</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-video">
+                            <div class="video-img video-img-2">
+                                <img src="{% static 'images/video/video-front4.jpg' %}" alt="">
+                                <div class="video-content content-center">
+                                <h3></h3>
+                                    <a class="video-popup" href="https://www.youtube.com/watch?v=BjiaMBk6rHk"><i class="icofont-play-alt-2"></i> view demo</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--最下面滚动的画面结束-->
+<style>
+.img_list{
+    height: 310px;
+}
+</style>
+{% endblock %}

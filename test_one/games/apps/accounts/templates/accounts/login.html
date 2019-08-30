@@ -1,0 +1,91 @@
+{% extends 'accounts/base_login_register.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    登录界面
+{% endblock %}
+
+{% block login_register %}
+<form class="form" method="post">
+    {% csrf_token %}
+    <div class="header header-primary text-center">
+        <div class="">
+            <img src="{% static 'images/logo-yl_1.png' %}" alt="">
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="input-group form-group-no-border input-lg">
+            {{ form.username }}
+        </div>
+        <div class="input-group form-group-no-border input-lg">
+            {{ form.password }}
+        </div>
+        <div class="input-group form-group-no-border input-lg">
+            {{ form.captcha }}
+            <a href="javascript:void(0);"><img id="captcha_img" src="#" style="border-radius:30px;border-top-left-radius: 0;
+    border-bottom-left-radius: 0;width: 150px"></a>
+        </div>
+
+        <p class="msg"></p>
+        <div>
+            <a href="{% url 'uc:password_forget' %}">忘记密码?</a>
+        </div>
+    </div>
+    <div class="footer text-center">
+        <div ><button class="btn btn-primary btn-round btn-lg btn-block" type="submit">登录</button></div>
+{#        <p class="msg"></p>#}
+    </div>
+    <div class="pull-left">
+        <h6>
+            你已经有账号了? 请点击 ☛ <a href="{% url 'accounts:register' %}">注册</a>
+        </h6>
+    </div>
+        <div class="pull-right">
+        <h6>
+            <a href="{% url 'index' %}" class="link">返回主页?</a>
+        </h6>
+    </div>
+    <div class="pull-right">
+    </div>
+</form>
+
+<script>
+    get_captcha_img();
+    $("#captcha_img").click(get_captcha_img);
+    function get_captcha_img() {
+        $.ajax({
+            url: '{% url 'apis:get_captcha' %}',
+            type: 'GET',
+            dataType: 'text',
+            success: function (data) {
+                $('#captcha_img').attr('src', data);
+            }
+        });
+    }
+
+    // 这里在form中定义了，如果没定义可以用jquery添加事件
+    // $("#id_captcha").blur(check_captcha);
+    // 当失去焦点时检查验证码
+    function check_captcha() {
+        var captcha_code = $('#id_captcha').val();
+        if (captcha_code.length == 0){
+            return false
+        }
+        $.ajax({
+            url: '{% url 'apis:check_captcha' %}',
+            type: 'GET',
+            dataType: 'json',
+            data: {"captcha_code": captcha_code},
+            success: function (data) {
+                if(data.code == 400){
+                     $('.msg').html("验证码错误");
+                }else{
+                    $('.msg').html("");
+                }
+            }
+        });
+    };
+</script>
+{% endblock %}
+

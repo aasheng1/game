@@ -1,0 +1,227 @@
+{% extends 'accounts/base_login_register.html' %}
+{% load staticfiles %}
+{% block title %}
+    注册界面
+{% endblock %}
+
+{% block login_register %}
+<form class="form" id="register_form">
+    {% csrf_token %}
+    <div class="header header-primary text-center">
+        <div class="">
+            <img src="{% static 'images/logo-yl_1.png' %}" alt="">
+        </div>
+    </div>
+    <div class="content">
+        <div class="input-group form-group-no-border input-lg">
+            {{ form.username }}
+        </div>
+        <div class="input-group form-group-no-border input-lg">
+            {{ form.email }}
+        </div>
+        <div class="input-group form-group-no-border input-lg">
+            {{ form.password }}
+        </div>
+        <div class="input-group form-group-no-border input-lg">
+            {{ form.password2 }}
+        </div>
+{#        <div class="input-group form-group-no-border input-lg">#}
+{#            {{ form.mobile }}#}
+{#        </div>#}
+        <div class="input-group form-group-no-border input-lg">
+            {{ form.mobile_captcha }}
+            <input onclick="sendemail(this, 60);" type="button" value="☛ 邮箱验证码"  class="btn btn-info  btn-13 " style="height:48px;width: 400px;position:relative"/>
+        </div>
+    </div>
+    <div class="footer text-center">
+        <div ><button class="btn btn-primary btn-round btn-lg btn-block" type="button" id="register_btn" style="position:relative;top: -25px;">注册</button></div>
+    </div>
+    <p class="msg"></p>
+    <div class="pull-left">
+        <h6>
+            你已经有账号了? 请点击 ☛ <a href="{% url 'accounts:login' %}">登录</a>
+        </h6>
+	<h6>
+            账号：rootroot；密码：rootroot 都为小写
+        </h6>
+    </div>
+    <div class="pull-right">
+        <h6>
+            <a href="{% url 'index' %}" class="link">返回主页?</a>
+        </h6>
+    </div>
+</form>
+
+<script>
+    {# 发送短信验证码 #}
+    {#function sendmessage(obj,second){#}
+    {#    var telRegex = /(13|14|15|17|18)\d{9}/;#}
+    {#    if(telRegex.test($.trim($("#id_mobile").val()))){#}
+    {#        $.ajax({#}
+    {#            url: "{% url 'apis:mobile_captcha' %}",#}
+    {#            type: "POST",#}
+    {#            dataType: "json",#}
+    {#            data: {"mobile": $("#id_mobile").val()},#}
+    {#            success: function (data) {#}
+    {#                 $.gritter.add({#}
+    {#                    // (string | mandatory) the heading of the notification#}
+    {#                    title: '提交结果',#}
+    {#                    // (string | mandatory) the text inside the notification#}
+    {#                  //text: 'This will fade out after a certain amount of time. Vivamus eget tincidunt velit. Cum sociis natoque penatibus et <a href="#" style="color:#ccc">magnis dis parturient</a> montes, nascetur ridiculus mus.'#}
+    {#                    text: data.msg#}
+    {#                });#}
+    {#            }#}
+    {#        });#}
+    {#        countDown(obj,second)#}
+    {#    } else{#}
+    {#        $.gritter.add({#}
+    {#            // (string | mandatory) the heading of the notification#}
+    {#            title: '提交结果',#}
+    {#            // (string | mandatory) the text inside the notification#}
+    {#            //text: 'This will fade out after a certain amount of time. Vivamus eget tincidunt velit. Cum sociis natoque penatibus et <a href="#" style="color:#ccc">magnis dis parturient</a> montes, nascetur ridiculus mus.'#}
+    {#            text: '手机号有误'#}
+    {#        });#}
+    {#    }#}
+
+    function sendemail(obj, second){
+        var email = $.trim($("#id_email").val());
+            $.ajax({
+                url: "{% url 'accounts:sendemail' %}",
+                type: "POST",
+                dataType: "json",
+                data: {"email": $("#id_email").val()},
+                success: function (data) {
+                     $.gritter.add({
+                        // (string | mandatory) the heading of the notification
+                        title: '提交结果',
+                        // (string | mandatory) the text inside the notification
+                      //text: 'This will fade out after a certain amount of time. Vivamus eget tincidunt velit. Cum sociis natoque penatibus et <a href="#" style="color:#ccc">magnis dis parturient</a> montes, nascetur ridiculus mus.'
+                        text: data.msg
+                    });
+                },
+            // 解决csrftoken
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+}
+            });
+
+            countDown(obj,second);
+    }
+
+    {# 重新发送倒计时 #}
+    function countDown(obj,second){
+    // 如果秒数还是大于0，则表示倒计时还没结束
+     if(second>=0){
+          // 获取默认按钮上的文字
+          if(typeof buttonDefaultValue === 'undefined' ){
+            buttonDefaultValue =  obj.defaultValue;
+        }
+        // 按钮置为不可点击状态
+        obj.disabled = true;
+        // 按钮里的内容呈现倒计时状态
+        obj.value = buttonDefaultValue+'('+second+')';
+        // 时间减一
+        second--;
+        // 一秒后重复执行
+        setTimeout(function(){countDown(obj,second);},1000);
+        // 否则，按钮重置为初始状态
+        }else{
+        // 按钮置未可点击状态
+        obj.disabled = false;
+        // 按钮里的内容恢复初始状态
+        obj.value = buttonDefaultValue;
+       }
+    }
+
+    $("#register_btn").click(function () {
+        $.ajax({
+            url: '{% url 'accounts:register' %}',
+            type: "POST",
+            dataType: 'json',
+            data: $("#register_form").serialize(),
+            success: function (data){
+                if (data.status==200){
+                    alert('注册成功');
+                    window.location.reload();
+                    msg = data.msg;
+                }
+                else if(data.status==401 || data.status==402){
+                    msg = data.msg;
+                }
+                else{
+                    for(var i in data.msg){
+                        msg = i+data.msg[i];
+                        break
+                    }
+                }
+                console.log(msg);
+                document.getElementById("register_msg2").innerHTML = msg;
+                document.getElementById("warning_msg2").style.display = "block";
+            },
+            error:function (data) {
+                alert('注册错误'+data);
+                console.log(data);
+            },
+        });
+    });
+
+{#$("#register_btn").click(function () {#}
+{#      // some_check#}
+{#      $.ajax({#}
+{#          url: "{% url 'accounts:register' %}",#}
+{#          type: "POST",#}
+{#          dataType: "json",#}
+{#          data: $("#register_form").serialize(), // {"username":'cali'}#}
+{#          success: function (data) {#}
+{#              if(data.status == 200 ){#}
+{#                  window.location.href='{% url 'index' %}';#}
+{#              }else{#}
+{#                  msg = "新错误类型";#}
+{#                  if(data.status == 400 || data.status == 401){#}
+{#                      msg = data.msg#}
+{#                  }else{#}
+{#                      // 402 => form.errors#}
+{#                      for(var i in data.msg){#}
+{#                          msg = i+data.msg[i];#}
+{#                          break#}
+{#                      }#}
+{#                  }#}
+{#                   $.gritter.add({#}
+{#                      // (string | mandatory) the heading of the notification#}
+{#                   title: '提交结果',#}
+{#                      // (string | mandatory) the text inside the notification#}
+{#                      //text: 'This will fade out after a certain amount of time. Vivamus eget tincidunt velit. Cum sociis natoque penatibus et <a href="#" style="color:#ccc">magnis dis parturient</a> montes, nascetur ridiculus mus.'#}
+{#                   text: msg#}
+{#                   });#}
+{#               }#}
+{#          },#}
+
+
+
+
+</script>
+
+<style type="text/css">
+    .btn-13{
+    background-color: transparent;
+    border: 1px solid #212529;
+    border-radius: 30px;
+    color: white;
+    line-height: normal;
+    font-size: 0.8571em;
+    -webkit-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    -moz-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    -o-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    -ms-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    {#border: medium none;#}
+    }
+    .btn-13:hover {
+    background-color: #6f42c1; }
+</style>
+{% endblock %}
+

@@ -1,0 +1,55 @@
+{% extends 'accounts/base.html' %}
+{% load staticfiles %}
+{% block title %}
+    游戏分类
+{% endblock %}
+
+
+{% block content %}
+    <div class="games-area section pt-85 pt-lg-65 pt-md-55 pt-sm-55 pt-xs-45">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!--Game Toolbar Start-->
+                    <div class="game-topbar-wrapper d-md-flex justify-content-md-between align-items-center">
+                        <div class="game-search-box">
+                            <h2>游戏分类</h2>
+                    </div>
+                    <!--Game Toolbar End-->
+                </div>
+            </div>
+            <div class="row">
+            {% for class in gameclass %}
+                <div class="col-lg-3 col-md-6">
+                    <!--Single Game Start-->
+                    <div class="single-game mb-50" style="width: 320px;position: relative;">
+                        <div class="game-img">
+                            <a href="{% url 'download:sort' class.id %}"><img src="{{ class.picture }}" alt="" style="width: 320px;height: 300px"></a>
+                        </div>
+                        <div class="game-content">
+                            <h4><a href="{% url 'download:sort' class.id %}" style="color: black;">{{ class.type_name }}</a></h4>
+                            <span></span>
+                        </div>
+                    </div>
+                    <!--Single Game End-->
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+<style>
+.gallery-grid{
+    float: left;
+    margin-top: 50px;
+}
+.gallery h2{
+    font-family: 'Play-Bold';
+    font-size: 2.5em;
+    color: #f43c60;
+    text-align: center;
+    margin-top: 50px;
+}
+
+</style>
+{% endblock %}

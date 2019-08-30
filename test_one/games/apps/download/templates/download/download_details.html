@@ -1,0 +1,205 @@
+{% extends 'download/download_base.html' %}
+{% load staticfiles %}
+{% block title %}
+    游戏详情
+{% endblock %}
+
+{% block download %}
+
+<div class="row">
+   <div class="col-12">
+       <div class="game-image-gallery-wrap">
+        <div class="game-image-large">
+            {% for item in picture_max_list %}
+            <div class="game-image img-full">
+                <img src="{{ item }}" alt="">
+            </div>
+            {% endfor %}
+        </div>
+        <div class="game-image-thumbs">
+            {% for item in picture_min_list %}
+            <div class="sm-image"><img src="{{ item }}" alt=""></div>
+            {% endfor %}
+        </div>
+        <div class="game-description mb-45">
+           <h1 style="text-align:center;">《{{ download_details.game_name }}》</h1>
+           <h3 style="text-align:center;">{{ download_details.name_alias }}</h3>
+            <h2>游戏介绍</h2>
+           <p>{{ download_details.introduce }}</p>
+       </div>
+    </div>
+   </div>
+</div>
+<div class="row">
+   <div class="col-12">
+       <div class="timelaine-wrapper mb-30">
+           <div class="single-timeline pb-30">
+               <h4>游戏类型</h4>
+               <span>{{ download_details.gameclass }}</span>
+
+           </div>
+           <div class="single-timeline pb-30">
+               <h4>发售时间</h4>
+               <p>{{ download_details.sell }}</p>
+           </div>
+           <div class="single-timeline pb-30">
+               <h4>游戏厂商</h4>
+               <p>{{ download_details.publishers }}</p>
+           </div>
+           <div class="single-timeline pb-30">
+               <h4>游戏大小</h4>
+               <p>{{ download_details.size }}</p>
+
+           </div>
+           <div class="single-timeline pb-30">
+               <h4>游戏标签</h4>
+               {% for item in tag_list %}
+               <span style="color: black;">{{ item }}&nbsp;</span>
+               {% endfor %}
+           </div>
+           <div class="single-timeline pb-30">
+               <h4>下载链接</h4>
+               <span class="game-price"></span>
+               <a href="{{ download_details.BT_link }}">BT种子下载</a>
+               <a href="{{ download_details.game_link }}">迅雷下载</a>
+               <a href="{{ download_details.baiduyun }}">百度网盘下载</a>
+           </div>
+       </div>
+   </div>
+</div>
+<div class="row">
+   <div class="col-12">
+       <div class="ratting-wrap mb-40">
+           <h3>ratings</h3>
+           <div class="rating-area">
+               <div class="total-rating">
+                   <h2>{{ download_details.grade }}分</h2>
+{#                   <span>(4.8 out of 5)</span>#}
+               </div>
+               <div class="rating-review">
+                   <div class="single-rating">
+                       <div class="rating-star">
+                           <span>5</span>
+                           <i class="fa fa-star"></i>
+                       </div>
+                       <div class="rating-progress">
+                           <div class="progress">
+                              <div class="progress-bar wow fadeInLeft" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
+                           </div>
+                       </div>
+                       <div class="rating-count">
+                           <span>980</span>
+                       </div>
+                   </div>
+                   <div class="single-rating">
+                       <div class="rating-star">
+                           <span>4</span>
+                           <i class="fa fa-star"></i>
+                       </div>
+                       <div class="rating-progress">
+                           <div class="progress">
+                              <div class="progress-bar wow fadeInLeft" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
+                           </div>
+                       </div>
+                       <div class="rating-count">
+                           <span>280</span>
+                       </div>
+                   </div>
+                   <div class="single-rating">
+                       <div class="rating-star">
+                           <span>3</span>
+                           <i class="fa fa-star"></i>
+                       </div>
+                       <div class="rating-progress">
+                           <div class="progress">
+                              <div class="progress-bar wow fadeInLeft" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
+                           </div>
+                       </div>
+                       <div class="rating-count">
+                           <span>89</span>
+                       </div>
+                   </div>
+                   <div class="single-rating">
+                       <div class="rating-star">
+                           <span>2</span>
+                           <i class="fa fa-star"></i>
+                       </div>
+                       <div class="rating-progress">
+                           <div class="progress">
+                              <div class="progress-bar wow fadeInLeft" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
+                           </div>
+                       </div>
+                       <div class="rating-count">
+                           <span>25</span>
+                       </div>
+                   </div>
+                   <div class="single-rating">
+                       <div class="rating-star">
+                           <span>1</span>
+                           <i class="fa fa-star"></i>
+                       </div>
+                       <div class="rating-progress">
+                           <div class="progress">
+                              <div class="progress-bar wow fadeInLeft" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
+                           </div>
+                       </div>
+                       <div class="rating-count">
+                           <span>25</span>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+<div class="row">
+   <div class="col-12">
+       <div class="review-wrap">
+          <h3>reviews(120)</h3>
+          <!--Single Review Start-->
+          <div class="single-review mb-30">
+              <h4>Best action game play ever</h4>
+              <div class="ratting">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-half-o"></i>
+              </div>
+              <p>The Witcher 3 is the best action game that i play ever. encounter consequences that are mely painful. Nor again is there me anyone who loves or pursues or desires take a trivial meaning less sexample, which of us ever undertakes laborious physical exercise.</p>
+              <div class="review-name-action">
+                  <a href="#">Adam Smith</a>
+                  <ul>
+                      <li><a href="#"><i class="fa fa-thumbs-o-up"></i>425</a></li>
+                      <li><a href="#"><i class="fa fa-thumbs-o-down"></i>65</a></li>
+                  </ul>
+              </div>
+          </div>
+          <!--Single Review End-->
+          <!--Single Review Start-->
+          <div class="single-review mb-30">
+              <h4>Really love this game</h4>
+              <div class="ratting">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-half-o"></i>
+              </div>
+              <p>The Witcher 3 is the best action game that i play ever. encounter consequences that are mely painful. Nor again is there me anyone who loves or pursues or desires take a trivial meaning less sexample, which of us ever undertakes laborious physical exercise.</p>
+              <div class="review-name-action">
+                  <a href="#">Thomas Morgan</a>
+                  <ul>
+                      <li><a href="#"><i class="fa fa-thumbs-o-up"></i>425</a></li>
+                      <li><a href="#"><i class="fa fa-thumbs-o-down"></i>65</a></li>
+                  </ul>
+              </div>
+          </div>
+          <!--Single Review End-->
+          <div class="reply-btn">
+            <a href="#">view more <i class="icofont-long-arrow-right"></i></a>
+          </div>
+       </div>
+   </div>
+</div>
+{% endblock %}

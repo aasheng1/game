@@ -1,0 +1,132 @@
+﻿{% extends 'download/download_base.html' %}
+{% load staticfiles %}
+{% block title %}
+    游戏列表
+{% endblock %}
+
+{% block download %}
+{#<div class="blog-list-area section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-xs-50">#}
+{#        <div class="container">#}
+{#            <div class="row row-25">#}
+{#                <div class="col-lg-9">#}
+    <div class="container">
+            <div class="row">
+                    <div class="col-12">
+                    <!--Game Toolbar Start-->
+                    <div class="game-topbar-wrapper d-md-flex justify-content-md-between align-items-center">
+
+                        <form type="get" action="download_list.html">
+                        <div class="game-search-box">
+                            {% csrf_token %}
+                            <h3>搜索游戏</h3>
+                            <input type="text" name="search" placeholder="游戏名字搜索" id="search">
+                            <button type="submit"><i class="icofont-search-2" style="position: relative;left: -60px"></i></button>
+                            <div><a href="{% url 'download:list' %}" style="position:relative;left: 20px;">重置搜索</a></div>
+                        </div>
+
+                        </form>
+
+                         <!--Toolbar Short Area Start-->
+                         <div class="toolbar-short-area d-md-flex align-items-center">
+                             <div class="toolbar-shorter">
+                                <h3>游戏类型</h3>
+                             <form type="post" action="download_list.html">
+                             {% csrf_token %}
+                                 <select class="wide" name="gameclass"  id="gameclass" onchange="window.location=this.value">
+                                     <option data-display="所有游戏">当前选择</option>
+                                     <option value="{% url 'download:list' %}" id="gameclass">所有游戏</option>
+                                     {% for class in gameclass %}
+                                     <option value="{% url 'download:sort' class.id %}" id="gameclass">{{ class.type_name }}</option>
+                                     {% endfor %}
+                                 </select>
+                             </form>
+                             </div>
+                         </div>
+                         <!--Toolbar Short Area End-->
+                    </div>
+                    <!--Game Toolbar End-->
+                </div>
+            </div>
+            <div class="row">
+                {% for item in contacts %}
+                <div class="col-lg-3 col-md-6">
+                    <!--Single Game Start-->
+                    <div class="single-game mb-50" style="position:relative;">
+                        <div class="game-img">
+                            <a href="{% url 'download:download_details' item.id %} "><img src="{{ item.poster }}" alt="" style="width: 187px;height: 250px"></a>
+                        </div>
+                        {% if len.item.game_name < 4 %}
+                            <div class="game-content">
+                                <h4><a href="{% url 'download:download_details' item.id %}">{{ item.game_name }}</a></h4>
+                                <span>{{ item.grade }}</span>
+                            </div>
+                        {% else %}
+                            <div class="" style="position: relative;width: 200px;top: 10px;">
+                                <h4><a href="{% url 'download:download_details' item.id %}">{{ item.game_name }}</a></h4>
+                                <h4><span style="color: blue;font-size: 15px;">评分 {{ item.grade }}</span></h4>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                    <!--Single Game End-->
+                </div>
+                {% endfor %}
+            </div>
+
+{#            {% for contact in contacts %}#}
+        <div class="pagination">
+            <div class="row">
+                <div class="col-12">
+                    <div class="blog-pagination text-center">
+                        <ul class="page-pagination" style="left: 280px;position: relative">
+                            {% if contacts.has_previous %}
+                            <li><a href="?page={{ contacts.previous_page_number }}"><i class="icofont-long-arrow-left"></i></a></li>
+                            {% endif %}
+
+                            {% for pg in contacts.paginator.page_range %}
+                            {% if contacts.number == pg %}
+                                <li class="active"><a href="?page={{ pg }}" style="color: red;">{{ pg }}</a></li>
+                            {% else %}
+                                <li><a href="?page={{ pg }}">{{ pg }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if contacts.has_next %}
+                            <li><a href="?page={{ contacts.next_page_number }}"><i class="icofont-long-arrow-right"></i></a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+{#        </div>#}
+{#                </div>#}
+{#        </div>#}
+{#    </div>#}
+
+
+
+<script type="text/javascript">
+$(function(){
+    var params = {};
+    params["name"] = $select_gameclass.id
+ //回显 schoolCode  下拉框id  ${schoolCode} 后台放作用域里的值
+ $("#gameclassoption").find('select[name]').each(
+     function(){
+        params[$(this).attr('name')] = $(this).val();
+ });
+    return params;
+});
+ var $select_gameclass = $('#gameclass');
+
+ $(function () {
+         // 切换分类
+    $select_gameclass.change(function () {
+        $table.bootstrapTable('refresh');
+    });
+ });
+$('#gameclass option:selected') .val();//Jquery获取选中的值
+</script>
+
+{% endblock %}
